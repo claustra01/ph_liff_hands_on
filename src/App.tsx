@@ -5,6 +5,8 @@ import "./App.css";
 function App() {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+  const [auth, setAuth] = useState(false);
+  const [imageUrl, setImageUrl] = useState("")
 
   useEffect(() => {
     liff
@@ -13,10 +15,13 @@ function App() {
       })
       .then(async () => {
         const profile = await liff.getProfile();
+        setAuth(true);
         setMessage(`Hello, ${profile.displayName}!`);
+        setImageUrl(profile.pictureUrl as string);
       })
       .catch((e: Error) => {
         setMessage('LIFF init failed.');
+        setAuth(false);
         setError(`${e}`);
       });
   });
@@ -24,6 +29,7 @@ function App() {
   return (
     <div className="App">
       <h1>create-liff-app</h1>
+      {auth ? <img src={imageUrl} /> : <></>}
       {message && <p>{message}</p>}
       {error && (
         <p>
