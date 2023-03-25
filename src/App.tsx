@@ -17,7 +17,9 @@ function App() {
         const profile = await liff.getProfile();
         setAuth(true);
         setMessage(`Hello, ${profile.displayName}!`);
-        setImageUrl(profile.pictureUrl as string);
+        if (typeof profile.pictureUrl === 'string') {
+          setImageUrl(profile.pictureUrl as string);
+        }
       })
       .catch((e: Error) => {
         setMessage('LIFF init failed.');
@@ -29,7 +31,7 @@ function App() {
   return (
     <div className="App">
       <h1>create-liff-app</h1>
-      {auth ? <img src={imageUrl} width="200" height="200" /> : <></>}
+      {auth && imageUrl !== "" ? <img src={imageUrl} width="200" height="200" /> : <></>}
       {message && <p>{message}</p>}
       {error && (
         <p>
