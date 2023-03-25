@@ -29,7 +29,7 @@ function App() {
   return (
     <div className="App">
       <h1>create-liff-app</h1>
-      {auth ? <img src={imageUrl} width="300" height="300" /> : <></>}
+      {auth ? <img src={imageUrl} width="200" height="200" /> : <></>}
       {message && <p>{message}</p>}
       {error && (
         <p>
